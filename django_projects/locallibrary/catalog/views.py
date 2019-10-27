@@ -27,12 +27,23 @@ def index(request):
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
 
-def books(request):
-    num_books = Book.objects.all().count()
-    context = {
-        'jumlah_buku' : num_books,
-    }
-    return render(request, 'books.html', context=context)
+# def books(request):
+#     num_books = Book.objects.all().count()
+#     context = {
+#         'jumlah_buku' : num_books,
+#     }
+#     return render(request, 'books.html', context=context)
+
+from django.views import generic
+
+class BookListView(generic.ListView):
+    model = Book
+
+    def get_queryset(self):
+        return Book.objects.filter(title__icontains='Tutorial')[:5]
+
+class BookDetailView(generic.DetailView):
+    model = Book
 
 def authors(request):
     num_authors = Author.objects.all().count()
