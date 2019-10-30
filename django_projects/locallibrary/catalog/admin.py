@@ -18,7 +18,7 @@ class BooksInline(admin.TabularInline):
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name',
-                    'date_of_birth', 'date_of_death')
+                    'date_of_birth')
     inlines = [BooksInline]
     
 admin.site.register(Author, AuthorAdmin)
